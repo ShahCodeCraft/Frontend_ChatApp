@@ -19,6 +19,7 @@ import { bgGradient } from "../constants/color";
 import { server } from "../constants/config";
 import { userExists } from "../redux/reducers/auth";
 import { usernameValidator } from "../utils/validators";
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -34,6 +35,9 @@ const Login = () => {
   const avatar = useFileHandler("single");
 
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -108,6 +112,11 @@ const Login = () => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleAdminLogin = () => {
+    // toggleAdminLogin(); // If you still need this functionality
+    navigate('/admin'); // Replace '/admin' with the path to your admin page
   };
 
   return (
@@ -190,6 +199,13 @@ const Login = () => {
                   onClick={toggleLogin}
                 >
                   Sign Up Instead
+                </Button>
+                <Button
+                  disabled={isLoading}
+                  fullWidth
+                  variant="text"
+                  onClick={handleAdminLogin}>
+                  ADMIN LOGIN 
                 </Button>
               </form>
             </>
